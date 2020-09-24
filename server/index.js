@@ -4,6 +4,8 @@ const cors = require("cors");
 
 const app = express();
 
+const random = () => Math.floor(Math.random() * (100 - 0 + 1)) + 0;
+
 function eventsHandler(req, res, next) {
   const headers = {
     "Content-Type": "text/event-stream",
@@ -11,22 +13,64 @@ function eventsHandler(req, res, next) {
     "Cache-Control": "no-cache",
   };
   res.writeHead(200, headers);
-  const data = `data: ${JSON.stringify(nests)}\n\n;`;
-  res.write(data);
+
+  setInterval(() => {
+    const data = `data: ${JSON.stringify({
+      type: "HEARTBEAT",
+    })}\n\n`;
+    res.write(data);
+  }, 1000);
+
+  setInterval(() => {
+    const data = `data: ${JSON.stringify({
+      type: "CHART1",
+      value: random(),
+    })}\n\n`;
+    res.write(data);
+  }, 300);
+
+  setInterval(() => {
+    const data = `data: ${JSON.stringify({
+      type: "CHART2",
+      value: random(),
+    })}\n\n`;
+    res.write(data);
+  }, 2000);
+
+  setInterval(() => {
+    const data = `data: ${JSON.stringify({
+      type: "CHART3",
+      value: random(),
+    })}\n\n`;
+    res.write(data);
+  }, 1000);
+
+  setInterval(() => {
+    const data = `data: ${JSON.stringify({
+      type: "CHART4",
+      value: random(),
+    })}\n\n`;
+    res.write(data);
+  }, 100);
+
   const clientId = Date.now();
   const newClient = {
     id: clientId,
     res,
   };
+
   clients.push(newClient);
+
   req.on("close", () => {
     console.log(`${clientId} Connection closed`);
     clients = clients.filter((c) => c.id !== clientId);
   });
 }
+
 function sendEventsToAll(newNest) {
   clients.forEach((c) => c.res.write(`data: ${JSON.stringify(newNest)}\n\n`));
 }
+
 async function addNest(req, res, next) {
   const newNest = req.body;
   nests.push(newNest);
