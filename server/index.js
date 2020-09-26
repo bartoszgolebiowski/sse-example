@@ -5,6 +5,8 @@ const cors = require("cors");
 const app = express();
 
 const random = () => Math.floor(Math.random() * (100 - 0 + 1)) + 0;
+const randomN = (n) =>
+  Array.from({ length: n }, (_, i) => 1).map((i) => random());
 
 function eventsHandler(req, res, next) {
   const headers = {
@@ -24,23 +26,23 @@ function eventsHandler(req, res, next) {
   setInterval(() => {
     const data = `data: ${JSON.stringify({
       type: "CHART1",
-      value: random(),
+      value: randomN(2),
     })}\n\n`;
     res.write(data);
-  }, 300);
+  }, 1000);
 
   setInterval(() => {
     const data = `data: ${JSON.stringify({
       type: "CHART2",
-      value: random(),
+      value: randomN(2),
     })}\n\n`;
     res.write(data);
-  }, 2000);
+  }, 1000);
 
   setInterval(() => {
     const data = `data: ${JSON.stringify({
       type: "CHART3",
-      value: random(),
+      value: randomN(2),
     })}\n\n`;
     res.write(data);
   }, 1000);
@@ -48,10 +50,10 @@ function eventsHandler(req, res, next) {
   setInterval(() => {
     const data = `data: ${JSON.stringify({
       type: "CHART4",
-      value: random(),
+      value: randomN(2),
     })}\n\n`;
     res.write(data);
-  }, 100);
+  }, 1000);
 
   const clientId = Date.now();
   const newClient = {
@@ -86,7 +88,7 @@ app.post("/nest", addNest);
 app.get("/events", eventsHandler);
 app.get("/status", (req, res) => res.json({ clients: clients.length }));
 
-const PORT = 3000;
+const PORT = 4000;
 let clients = [];
 let nests = [];
 

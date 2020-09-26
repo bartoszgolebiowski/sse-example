@@ -9,7 +9,7 @@ import { Chart3OnMessage } from "../onMessage/chart3/Chart3OnMessage";
 import { Chart2OnMessage } from "../onMessage/chart2/Chart2OnMessage";
 import { Chart1OnMessage } from "../onMessage/chart1/Chart1OnMessage";
 
-export const SSE_ADRESS = "http://localhost:3000/events";
+export const SSE_ADRESS = "http://localhost:4000/events";
 
 export const GENERAL = "GENERAL";
 export const HEARTBEAT = "HEARTBEAT";

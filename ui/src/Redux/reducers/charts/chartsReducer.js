@@ -9,9 +9,9 @@ import { initialState } from "../../actions/charts/actionTypes";
 
 const sliceArray = (data, element) => {
   if (data.length <= 20) {
-    return [...data, element];
+    return [...data, ...element];
   }
-  return [...data.slice(data.length - 20, data.length), element];
+  return [...data.slice(data.length - 20, data.length), ...element];
 };
 
 const reducer = (state = initialState, action) => {

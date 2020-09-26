@@ -1,5 +1,5 @@
 import React from "react";
-import Chart from "../Components/Chart/Chart";
+import Chart from "../Components/RealtimeChart/RealtimeChart";
 import { useSelector } from "react-redux";
 
 const Dashboard = () => {
